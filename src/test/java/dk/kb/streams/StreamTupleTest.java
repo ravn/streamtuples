@@ -16,8 +16,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @noinspection Convert2MethodRef, ArraysAsListWithZeroOrOneArgument
+/** IntellJ voodoo:
+ * @noinspection Convert2MethodRef, ArraysAsListWithZeroOrOneArgument, WeakerAccess
  */
 public class StreamTupleTest {
     @Test
@@ -31,7 +31,7 @@ public class StreamTupleTest {
     }
 
     @Test
-    public void map0() {
+    public void isSimpleStreamCollectionWorking() {
         Map<String, String> m = Stream.of("1", "2", "3")
                 .map(StreamTuple::create)
                 .collect(toMap(t -> t.left(), t -> t.right()));
@@ -41,12 +41,27 @@ public class StreamTupleTest {
         expected.put("2", "2");
         expected.put("3", "3");
 
-        assertThat(m, org.hamcrest.CoreMatchers.is(expected));
+        assertThat(m, is(expected));
     }
 
-    // FIXME:  Explain why.
     @Test
-    public void map1() {
+    public void canWeMapBetweenTypes() {
+        Map<String, String> m = Stream.of("1", "2", "3")
+                .map(StreamTuple::create)
+                .map(t -> t.map(v -> Integer.valueOf(v) * 2))
+                .map(t -> t.map(v -> "doubled is " + v))
+                .collect(toMap(t -> t.left(), t -> t.right()));
+
+        Map<String, String> expected = new TreeMap<>();
+        expected.put("1", "doubled is 2");
+        expected.put("2", "doubled is 4");
+        expected.put("3", "doubled is 6");
+
+        assertThat(m, is(expected));
+    }
+
+    @Test
+    public void canWeMapBetweenTypesUsingBothLeftAndRight() {
         Map<String, String> m = Stream.of("1", "2", "3")
                 .map(StreamTuple::create)
                 .map(t -> t.map(v -> Integer.valueOf(v) * 2))
@@ -61,28 +76,9 @@ public class StreamTupleTest {
         assertThat(m, is(expected));
     }
 
-    /**
-     * @noinspection Convert2MethodRef
-     */
-    @Test
-    public void map2() {
-        // Do simple string manipulations using id.
-        Map<Integer, String> m = Stream.of(1, 2, 3)
-                .map(id -> new StreamTuple<>(id, id + "!"))
-                .map(t -> t.map(r -> ">" + r))
-                .map(t -> t.map((l, r) -> r.substring(l - 1)))
-                .collect(toMap(t -> t.left(), t -> t.right()));
-
-        Map<Integer, String> expected = new TreeMap<>();
-        expected.put(1, ">1!");
-        expected.put(2, "2!");
-        expected.put(3, "!");
-
-        assertThat(m, is(expected));
-    }
 
     @Test
-    public void of3() {
+    public void twoArgumentConstructorAndTypeChanges() {
         // Change value type several times.
         Map<Integer, String> m = Stream.of(1, 2, 3)
                 .map(id -> new StreamTuple<>(id, Math.PI * id))
@@ -98,9 +94,7 @@ public class StreamTupleTest {
     }
 
     @Test
-    public void filter1() {
-        // Change value type several times.
-
+    public void filterOutRightsLargerThanTwo() {
         Map<Integer, Integer> m = Stream.of(1, 2, 3)
                 .map(StreamTuple::create)
                 .filter(t -> t.filter(r -> r < 2))
@@ -113,7 +107,7 @@ public class StreamTupleTest {
     }
 
     @Test
-    public void flatMap1() {
+    public void flatMap_doubleOddRights() {
         Map<Integer, Integer> m = Stream.of(1, 2, 3)
                 .map(StreamTuple::create)
                 // get odd ones and multiply them by two
@@ -128,7 +122,7 @@ public class StreamTupleTest {
     }
 
     @Test
-    public void flatMap2() {
+    public void flatMap_doubleOddRightsTripleEvenRights() {
         Map<Integer, List<Integer>> m = Stream.of(1, 2, 3)
                 .map(StreamTuple::create)
                 .flatMap(t -> t.flatMap((l, r) -> l % 2 == 1 ? Stream.of(r * 2) : Stream.of(r, r * 2, r * 3)))
