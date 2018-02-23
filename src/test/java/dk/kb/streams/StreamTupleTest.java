@@ -16,14 +16,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/** IntellJ voodoo:
+/**
  * @noinspection Convert2MethodRef, ArraysAsListWithZeroOrOneArgument, WeakerAccess
  */
 public class StreamTupleTest {
     @Test
     public void areLeftAndRightAsExpected() {
         String s1 = "s1";
-
         String s2 = "s2";
         StreamTuple<String, String> streamTuple = new StreamTuple<>(s1, s2);
         assertEquals(s1, streamTuple.left());
@@ -78,17 +77,17 @@ public class StreamTupleTest {
 
 
     @Test
-    public void twoArgumentConstructorAndTypeChanges() {
+    public void twoArgumentConstructorAndTypeChangesFilteringValues() {
         // Change value type several times.
         Map<Integer, String> m = Stream.of(1, 2, 3)
                 .map(id -> new StreamTuple<>(id, Math.PI * id))
+                .filter(t -> t.filter(v -> v < 7))
                 .map(t -> t.map(r -> Double.toString(r).substring(0, 4)))
                 .collect(toMap(t -> t.left(), t -> t.right()));
 
         Map<Integer, String> expected = new TreeMap<>();
         expected.put(1, "3.14");
         expected.put(2, "6.28");
-        expected.put(3, "9.42");
 
         assertThat(m, is(expected));
     }

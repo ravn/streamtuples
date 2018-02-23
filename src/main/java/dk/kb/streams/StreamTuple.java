@@ -1,7 +1,5 @@
 package dk.kb.streams;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -48,18 +46,6 @@ public class StreamTuple<L, R> {
 
     public static <L> StreamTuple<L, L> create(L left) {
         return new StreamTuple<>(left, left);
-    }
-
-    /**
-     * Helper method put here for now to get the stacktrace of a throwable as a string.   Why is this not in the runtime library??
-     */
-
-    public static String stacktraceFor(Throwable t) {
-        // https://stackoverflow.com/a/1149721/53897
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        t.printStackTrace(pw);
-        return sw.toString();
     }
 
     /**
