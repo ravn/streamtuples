@@ -6,22 +6,9 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
- * <p>
- * One of the major problems with using streams in Java is that the
- * language does not support tuples (multiple return values from a
- * method) so you very frequently find that you need to pass <em>both</em>
- * the original value and the current result to the next step instead
- * of just the current result.  The current Word Of God is that you
- * create a custom class for each intermediate step, which is rather
- * much a pain.  This is an experiment to see if a helper class that
- * knows the original value plus some suitable helper methods can
- * replace these custom classes.  As the JRE does only have two-argument
- * but not three-argument definitions, this is for
- * two-tuples only for now. </p>
- * <p>Due to the way Java works the general idea is that each Stream
- * method, like <code>filter(...)</code> has a corresponding helper
- * method here which returns what the outer method needs to do its
- * job. </p>
+ * <p>Helper class for having multiple values in a stream. </p>
+ *
+ * @noinspection WeakerAccess
  */
 public class StreamTuple<L, R> {
 
@@ -29,10 +16,10 @@ public class StreamTuple<L, R> {
     protected final R right;
 
     /**
-     * for <code> (l, r) -> new StreamTuple<>(l, r) </code>
+     * for {@code (l, r) -> new StreamTuple<>(l, r) }
      *
-     * @param left
-     * @param right
+     * @param left  leftmost item in tuple
+     * @param right rightmost item in tuple
      */
 
     public StreamTuple(L left, R right) {
@@ -42,10 +29,13 @@ public class StreamTuple<L, R> {
 
     /**
      * Suitable for Stream::create.  Both left and right are set to the value passed in.
+     *
+     * @param item the item to be placed in both {@code left} and {@code right}
+     * @return StreamTuple with item in both left and right.
      */
 
-    public static <L> StreamTuple<L, L> create(L left) {
-        return new StreamTuple<>(left, left);
+    public static <I> StreamTuple<I, I> create(I item) {
+        return new StreamTuple<>(item, item);
     }
 
     /**

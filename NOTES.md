@@ -1,0 +1,16 @@
+http://central.sonatype.org/pages/ossrh-guide.html
+
+http://central.sonatype.org/pages/requirements.html
+
+Must have
+
+
+    <servers>
+      <server>
+        <id>ossrh</id>
+        <username>...</username>
+        <password>...</password>
+      </server>
+    </servers>
+  
+  in ~/.m2/settings.xml
