@@ -22,6 +22,10 @@
         </dependency>
     </dependencies>
 
+    <properties>
+        <project.build.sourceEncoding>ASCII</project.build.sourceEncoding>
+    </properties>
+
     <name>StreamTuples</name>
     <description>Library for having tuples (multiple return values) in Java 8 streams</description>
     <url>https://github.com/statsbiblioteket/streamtuples</url>
@@ -128,6 +132,30 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
+            </plugin>
+            <!-- https://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <autoUpdate>true</autoUpdate>
+                    <cveValidForHours>12</cveValidForHours>
+                    <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+                    <!--
+                    <suppressionFile>./suppressions.xml</suppressionFile>
+                    -->
+                    <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
+                    <nspAnalyzerEnabled>false</nspAnalyzerEnabled>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>deploy</phase>                                                                      <!-- kør dependency-check-maven ved mvn package -->
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
