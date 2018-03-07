@@ -109,7 +109,8 @@
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
-                        <phase>verify</phase>
+                        <!-- moved from verify to deploy to only do gpg when really needed -->
+                        <phase>deploy</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>

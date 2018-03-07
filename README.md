@@ -2,23 +2,32 @@ _streamtuples_ is a solution to the "I need the value again I had
 earlier in the stream".  This is typically when you have an id, use it
 to look something up (replacing the id with the value found) and then
 needing _both_ the id and the value to send the result back to
-storage.
+storage.  In most functional languages this is typically done by 
+returning a pair of values (or more).  Such a pair is called a _tuple_ 
+and is typically written like `(a, b) = method(...)`.
 
-This is very cumbersome to do in Java as it doesn't have multi-value
+This is not possible in Java 8 as there are no multi-value
 return types or pairs/tuples in the language, so the official
 recommendation is to write a custom class for each intermediate step
-in the stream as needed, but even so the language does not help
+in the stream as needed, but even so the language does not help with
 autoboxing (for lack of a better word) these, unless you use magic 
-somewhere in the proces.
+somewhere in the process.
 
-This project offers a different approach.  A tuple holding two values
+This project offers a different approach:  A tuple holding two values
 and helper methods to use the tuple in streams.  Focus has been on
 following the rules and help the compiler as much as possible.
 
-An example from an early unit test.  The value passed in the actual
-stream is turned into a `StreamTuple<L, R>` which _also_ has a `map` 
-method which
-returns what the actual `map` method needs to pass a suitable new
+##TODO## :  Graphic showing  what is going on.
+
+An example from an early unit test.  The really important bit is the
+`(left, right) -> left + "*2=" + right)` snippet inside a `map(...)`
+which is a two-argument lambda expression where the value saved earlier and
+the item currently in the stream are both used.
+
+Details: 
+The value passed in the actual stream is turned into a `StreamTuple<L, R>` 
+which _also_ has a `map`  method which returns what the actual `map` method 
+needs to pass a suitable new
 `StreamTuple`to the next step in the stream.  
 
 
@@ -43,5 +52,4 @@ StreamTuple also has a `filter()` method which helps the `Stream.filter()` metho
 and  `right()` plus `left()` which returns the two values stored in the stream tuple.
 
 
-/tra 2018-02-20
-
+/tra 2018-03-07
