@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @noinspection WeakerAccess
+ * @noinspection WeakerAccess, Convert2MethodRef, ArraysAsListWithZeroOrOneArgument
  */
 public class StreamTupleTest {
     @Test

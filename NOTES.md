@@ -13,4 +13,7 @@ Must have
       </server>
     </servers>
   
-  in ~/.m2/settings.xml
+in ~/.m2/settings.xml
+
+Artifacts at https://oss.sonatype.org/content/repositories/snapshots/dk/kb/stream/streamtuples/ 
+
