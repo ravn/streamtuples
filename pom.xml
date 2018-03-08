@@ -48,7 +48,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/statsbiblioteket/streamtuples.git</connection>
-        <developerConnection>scm:git:ssh://github.com:statsbiblioteket/streamtuples.git</developerConnection>
+        <developerConnection>scm:git:ssh://github.com/statsbiblioteket/streamtuples.git</developerConnection>
         <url>http://github.com/statsbiblioteket/streamtuples/tree/master</url>
     </scm>
 
