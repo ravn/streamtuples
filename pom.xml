@@ -153,9 +153,20 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
-                        <phase>deploy</phase>                                                                      <!-- kør dependency-check-maven ved mvn package -->
+                        <!-- kør dependency-check-maven ved mvn package -->
+                        <phase>deploy</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- http://maven.apache.org/maven-release/maven-release-plugin/usage.html -->
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <!-- earlier versions have a git commit issue -->
+                <version>2.5.3</version>
+                <configuration>
+                    <!-- Pushes done manually for now -->
+                    <pushChanges>false</pushChanges>
+                </configuration>
             </plugin>
         </plugins>
     </build>
