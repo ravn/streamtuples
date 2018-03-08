@@ -4,7 +4,7 @@
 
     <groupId>dk.kb.stream</groupId>
     <artifactId>streamtuples</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -48,7 +48,7 @@
         <connection>scm:git:git://github.com/statsbiblioteket/streamtuples.git</connection>
         <developerConnection>scm:git:git@github.com/statsbiblioteket/streamtuples.git</developerConnection>
         <url>http://github.com/statsbiblioteket/streamtuples/tree/master</url>
-      <tag>streamtuples-0.1</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <distributionManagement>
