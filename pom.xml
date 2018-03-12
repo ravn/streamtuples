@@ -168,12 +168,45 @@
                     <pushChanges>false</pushChanges>
                 </configuration>
             </plugin>
+            <!-- https://maven.apache.org/plugins/maven-jar-plugin/usage.html -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-
+                    <!-- https://maven.apache.org/shared/maven-archiver/index.html -->
+                    <archive>
+                        <!-- no pom files as they contain meta data -->
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <!-- blank out standard attributes -->
+                        <manifestEntries>
+                            <Created-By>-</Created-By>
+                            <Built-By>-</Built-By>
+                            <Build-Jdk>-</Build-Jdk>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- http://www.mojohaus.org/exec-maven-plugin/exec-mojo.html -->
+                    <executable>ziptool</executable>
+                    <arguments>
+                        <argument>${project.build.directory}/${project.build.finalName}.jar</argument>
+                        <argument>set_file_mtime_all</argument>
+                        <argument>0</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>

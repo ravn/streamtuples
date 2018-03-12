@@ -59,4 +59,13 @@ StreamTuple also has a `filter()` method which helps the `Stream.filter()` metho
 and  `right()` plus `left()` which returns the two values stored in the stream tuple.
 
 
+COMPILATION
+---
+
+Required:
+* Java 8
+* "ziptool" on the PATH
+
+
+
 /tra 2018-03-07
