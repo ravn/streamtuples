@@ -1,5 +1,5 @@
 /**
- * <p>One of the major problems with using streams in Java is that the
+ * <p>One of the major problems with using stream in Java is that the
  * language does not support tuples (multiple return values from a method)
  * so you very frequently
  * find that you need to pass both the original value and the
@@ -16,4 +16,4 @@
  * method here which returns what the outer method needs to do its
  * job. </p>
  */
-package dk.kb.streams;
+package dk.kb.stream;

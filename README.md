@@ -1,3 +1,10 @@
+[![Javadocs](http://javadoc.io/badge/dk.kb.stream/streamtuple.svg)](http://javadoc.io/doc/dk.kb.stream/streamtuple)
+
+(test of http://javadoc.io/)
+
+---
+
+
 _streamtuples_ is a solution to the "I need the value again I had
 earlier in the stream".  This is typically when you have an id, use it
 to look something up (replacing the id with the value found) and then

@@ -1,4 +1,4 @@
-package dk.kb.streams;
+package dk.kb.stream;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;

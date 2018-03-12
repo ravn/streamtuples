@@ -1,4 +1,4 @@
-package dk.kb.streams;
+package dk.kb.stream;
 
 import org.junit.jupiter.api.Test;
 
