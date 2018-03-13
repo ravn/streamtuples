@@ -66,6 +66,6 @@ Required:
 * Java 8
 * "ziptool" on the PATH
 
-
+Only the library itself is intended to go to Maven Central.
 
 /tra 2018-03-07
