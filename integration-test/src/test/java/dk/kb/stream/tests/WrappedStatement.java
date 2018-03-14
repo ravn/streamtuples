@@ -1,7 +1,6 @@
 package dk.kb.stream.tests;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -27,9 +26,9 @@ public class WrappedStatement implements AutoCloseable {
         }
     }
 
-    public ResultSet executeQuery(String sql) {
+    public WrappedResultSet executeQuery(String sql) {
         try  {
-            return s.executeQuery(sql);
+            return new WrappedResultSet(s.executeQuery(sql));
         } catch (SQLException e) {
             throw new RuntimeException(sql, e);
         }
