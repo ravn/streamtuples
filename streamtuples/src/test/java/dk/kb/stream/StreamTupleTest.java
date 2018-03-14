@@ -3,6 +3,7 @@ package dk.kb.stream;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,6 +42,32 @@ public class StreamTupleTest {
         expected.put("3", "3");
 
         assertThat(m, is(expected));
+    }
+
+    @Test
+    public void simpleMapUpdateOperationUsingStreamTupleForEach() {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "1.");
+        map.put(2, "2.");
+        map.put(3, "3.");
+
+        map.keySet().stream()
+                .map(StreamTuple::create)
+                // lookup value for key
+                .map(st -> st.map(key -> map.get(key)))
+                // only process those who are interesting
+                .filter(st -> st.filter(s -> s.startsWith("1")))
+                // manipulate value, no notion of key
+                .map(st -> st.map(s -> s + " OK"))
+                // store value back for key
+                .forEach(st -> map.put(st.left(), st.right()));
+
+        Map<Integer, String> expected = new HashMap<>();
+        expected.put(1, "1. OK");
+        expected.put(2, "2.");
+        expected.put(3, "3.");
+        assertThat(map, is(expected));
+
     }
 
     @Test
