@@ -9,7 +9,7 @@
     </parent>
     <groupId>dk.kb.stream</groupId>
     <artifactId>streamtuples</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -50,7 +50,7 @@
         <connection>scm:git:git://github.com/statsbiblioteket/streamtuples.git</connection>
         <developerConnection>scm:git:git@github.com/statsbiblioteket/streamtuples.git</developerConnection>
         <url>http://github.com/statsbiblioteket/streamtuples/tree/master</url>
-        <tag>streamtuples-0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
