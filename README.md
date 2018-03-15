@@ -1,4 +1,4 @@
-[![Javadocs](http://javadoc.io/badge/dk.kb.stream/streamtuple.svg)](http://javadoc.io/doc/dk.kb.stream/streamtuple)
+[![Javadocs](http://javadoc.io/badge/dk.kb.stream/streamtuples.svg)](http://javadoc.io/doc/dk.kb.stream/streamtuples)
 
 (test of http://javadoc.io/)
 

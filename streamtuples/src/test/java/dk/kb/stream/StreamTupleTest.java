@@ -44,30 +44,32 @@ public class StreamTupleTest {
         assertThat(m, is(expected));
     }
 
-    @Test
+    @Test  // junit 5
     public void simpleMapUpdateOperationUsingStreamTupleForEach() {
         Map<Integer, String> map = new HashMap<>();
         map.put(1, "1.");
         map.put(2, "2.");
-        map.put(3, "3.");
 
-        map.keySet().stream()
-                .map(StreamTuple::create)
+        Map result = map.keySet().stream()
+                .map(StreamTuple::create) // (1, 1), (2, 2)
                 // lookup value for key
-                .map(st -> st.map(key -> map.get(key)))
+                .map(st -> st.map(key -> map.get(key))) // (1, "1."), (2, "2.")
                 // only process those who are interesting
-                .filter(st -> st.filter(s -> s.startsWith("1")))
+                .filter(st -> st.filter(s -> s.startsWith("1"))) // (1, "1.")
                 // manipulate value, no notion of key
-                .map(st -> st.map(s -> s + " OK"))
+                .map(st -> st.map(s -> s + " OK"))  // (1, "1. OK")
                 // store value back for key
-                .forEach(st -> map.put(st.left(), st.right()));
+                .map(st -> st.map((key, s) -> map.put(key, s))) // (1, "1.") (put returns old value)
+                .collect(toMap(st -> st.left(), st -> st.right()));
 
-        Map<Integer, String> expected = new HashMap<>();
-        expected.put(1, "1. OK");
-        expected.put(2, "2.");
-        expected.put(3, "3.");
-        assertThat(map, is(expected));
+        Map<Integer, String> expectedResult = new HashMap<>();
+        expectedResult.put(1, "1.");
+        assertThat(result, is(expectedResult));
 
+        Map<Integer, String> expectedMap = new HashMap<>();
+        expectedMap.put(1, "1. OK");
+        expectedMap.put(2, "2.");
+        assertThat(map, is(expectedMap));
     }
 
     @Test
@@ -107,12 +109,11 @@ public class StreamTupleTest {
         // Change value type several times.
         Map<Integer, String> m = Stream.of(1, 2, 3)
                 .map(id -> new StreamTuple<>(id, Math.PI * id))
-                .filter(t -> t.filter(v -> v < 7))
+                .filter(t -> t.filter((id, v) -> id > 1 && v < 7))
                 .map(t -> t.map(r -> Double.toString(r).substring(0, 4)))
                 .collect(toMap(t -> t.left(), t -> t.right()));
 
         Map<Integer, String> expected = new TreeMap<>();
-        expected.put(1, "3.14");
         expected.put(2, "6.28");
 
         assertThat(m, is(expected));
@@ -159,5 +160,20 @@ public class StreamTupleTest {
         expected.put(3, Arrays.asList(6));
 
         assertThat(m, is(expected));
+    }
+
+    @Test
+    public void sorted_noArgument() {
+        List<String> l = Stream.of(
+                new StreamTuple<>(1, "z"),
+                new StreamTuple<>(2, "b"),
+                new StreamTuple<>(3, "a")
+                )
+                .sorted()
+                .map(st -> st.right())
+                .collect(toList());
+
+        assertThat(l, is(Arrays.asList("a", "b", "z")));
+
     }
 }

@@ -1,6 +1,8 @@
 package dk.kb.stream;
 
+import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -10,7 +12,7 @@ import java.util.stream.Stream;
  *
  * @noinspection WeakerAccess
  */
-public class StreamTuple<L, R> {
+public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
 
     protected final L left;
     protected final R right;
@@ -18,17 +20,18 @@ public class StreamTuple<L, R> {
     /**
      * for {@code (l, r) -> new StreamTuple<>(l, r) }
      *
-     * @param left  leftmost item in tuple
-     * @param right rightmost item in tuple
+     * @param left  leftmost item in tuple. Must be non-null.
+     * @param right rightmost item in tuple. Must be non-null.
      */
 
     public StreamTuple(L left, R right) {
-        this.left = left;
-        this.right = right;
+        this.left = Objects.requireNonNull(left, "left");
+        this.right = Objects.requireNonNull(right, "right");
     }
 
     /**
-     * Suitable for Stream::create.  Both left and right are set to the value passed in.
+     * Suitable for Stream::create.  Both left and right are set to the value passed in.  This is a good start if you have
+     * a stream of keys which you need later.
      *
      * @param item the item to be placed in both {@code left} and {@code right}
      * @return StreamTuple with item in both left and right.
@@ -93,14 +96,21 @@ public class StreamTuple<L, R> {
     }
 
     /**
-     * for <pre>.filter(c->c.filter(v -> ...))</pre>
+     * for <pre>.filter(st -> st.filter(r -> ...))</pre>
      */
     public boolean filter(Predicate<R> predicate) {
         return predicate.test(right);
     }
 
     /**
-     * for <pre>.flatMap(c->c.flatMap(v -> ....))</pre>
+     * for <pre>.filter(st -> st.filter((l, r) -> ...))</pre>
+     */
+    public boolean filter(BiPredicate<L, R> predicate) {
+        return predicate.test(left, right);
+    }
+
+    /**
+     * for <pre>.flatMap(st -> st.flatMap(r -> ....))</pre>
      */
 
     public <U> Stream<StreamTuple<L, U>> flatMap(Function<R, Stream<U>> f) {
@@ -108,7 +118,7 @@ public class StreamTuple<L, R> {
     }
 
     /**
-     * for <pre>.flatMap(c->c.flatMap((id, v) -> ....))</pre>
+     * for <pre>.flatMap(st -> st.flatMap((l, r) -> ....))</pre>
      */
     public <U> Stream<StreamTuple<L, U>> flatMap(BiFunction<L, R, Stream<U>> f) {
         return f.apply(left, right).map(this::of);
@@ -123,5 +133,32 @@ public class StreamTuple<L, R> {
                 "left=" + left +
                 ", right=" + right +
                 '}';
+    }
+
+    @Override
+    public int compareTo(StreamTuple<L, R> that) {
+        int i;
+
+        Comparable<R> cr = (Comparable<R>) right;
+        i = cr.compareTo(that.right);
+        if (i == 0) {
+            Comparable<L> cl = (Comparable<L>) left;
+            i = cl.compareTo(that.left);
+        }
+        return i;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StreamTuple<?, ?> that = (StreamTuple<?, ?>) o;
+        return Objects.equals(left, that.left) &&
+                Objects.equals(right, that.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(left, right);
     }
 }
