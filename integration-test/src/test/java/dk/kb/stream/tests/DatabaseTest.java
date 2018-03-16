@@ -30,7 +30,7 @@ public class DatabaseTest {
     protected DataSource datasource;
 
     @BeforeEach()
-    public void setupDatabase() throws SQLException {
+    public void setupDatabase() {
         JdbcDataSource ds;
         ds = new JdbcDataSource();
         ds.setURL("jdbc:h2:mem:testDB");
@@ -40,7 +40,7 @@ public class DatabaseTest {
     }
 
     @AfterEach
-    public void destroyDatabase() throws SQLException {
+    public void destroyDatabase() {
         // don't know yet
     }
 
@@ -52,6 +52,7 @@ public class DatabaseTest {
         }
     }
 
+    /** @noinspection Convert2MethodRef*/
     @Test
     public void streamUpdateSimpleTable() throws SQLException {
         try (Connection conn = Objects.requireNonNull(datasource, "datasource").getConnection();
@@ -62,7 +63,7 @@ public class DatabaseTest {
                     "INSERT INTO t VALUES (2, 'Second')",
                     "INSERT INTO t VALUES (1, 'First')",
                     "COMMIT")
-                    .forEach(sql -> s.execute(sql));
+                    .forEach(s::execute);
 
             // ---
             // Ask database for each id.

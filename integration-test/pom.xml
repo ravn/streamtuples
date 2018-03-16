@@ -8,7 +8,6 @@
         <artifactId>streamtuples-parent</artifactId>
         <version>0.1</version>
     </parent>
-    <groupId>dk.kb.stream</groupId>
     <artifactId>streamtuples-integration-test</artifactId>
     <version>0.2-SNAPSHOT</version>
 

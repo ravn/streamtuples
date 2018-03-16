@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 /**
  *
+ * @noinspection WeakerAccess
  */
 public class WrappedStatement implements AutoCloseable {
     private final Statement s;

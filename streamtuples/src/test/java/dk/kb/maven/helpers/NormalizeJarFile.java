@@ -11,7 +11,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @noinspection PointlessBooleanExpression
+ * @noinspection PointlessBooleanExpression, WeakerAccess
  */
 public class NormalizeJarFile {
     public static void main(String args[]) throws Exception {
@@ -36,16 +36,15 @@ public class NormalizeJarFile {
             System.err.println(tmpJarFile.getAbsolutePath() + " could not make parent directory");
             System.exit(4);
         }
-        ;
 
         if (backupJarFile.getParentFile().exists() == false && backupJarFile.getParentFile().mkdirs() == false) {
             System.err.println(backupJarFile.getAbsolutePath() + " could not make parent directory");
             System.exit(5);
         }
+        //noinspection StatementWithEmptyBody
         if (backupJarFile.delete() == false) {
-            // could not delete it, it may be because
+            // could not successfully delete it, typical case during maven build.
         }
-        ;
 
         // https://github.com/manouti/jar-timestamp-normalize-maven-plugin/blob/master/src/main/java/com/github/manouti/normalize/DefaultNormalizer.java
 
@@ -54,8 +53,6 @@ public class NormalizeJarFile {
 
             Collections.list(source.entries()).stream()
                     .sorted(Comparator.comparing(ZipEntry::getName))
-                    //.filter(entry -> entry.isDirectory() == false)
-                    .peek(System.err::println)
                     .forEach(entry -> {
                         try {
                             entry.setTime(0);
@@ -83,16 +80,13 @@ public class NormalizeJarFile {
         if (workJarFile.renameTo(backupJarFile) == false) {
             System.err.println("Could not rename " + workJarFile.getAbsolutePath() + " to " + backupJarFile.getAbsolutePath());
             System.exit(8);
-        };
+        }
 
         if (tmpJarFile.renameTo(workJarFile) == false) {
             System.err.println("Could not rename " + tmpJarFile.getAbsolutePath() + " to " + workJarFile.getAbsolutePath());
             System.exit(9);
-        };
+        }
 
-        // All ok.
-
-        System.exit(0);
+        // All ok.  No system.exit as this kills the Maven build.
     }
-
 }

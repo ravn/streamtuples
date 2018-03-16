@@ -1,6 +1,4 @@
 *.iml
 .idea/
-target/
-/.classpath
-/.project
-/.settings/
+/streamtuples/release.properties
+/streamtuples/pom.xml.releaseBackup

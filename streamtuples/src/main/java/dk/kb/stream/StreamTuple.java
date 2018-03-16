@@ -135,10 +135,15 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
                 '}';
     }
 
+    /**
+     * Make StreamTuples comparable.  The right value is considered first, and then the key.
+     * It is not required that they are comparable so this may fail with a ClassCastException.
+     *
+     * @noinspection unchecked
+     */
     @Override
     public int compareTo(StreamTuple<L, R> that) {
         int i;
-
         Comparable<R> cr = (Comparable<R>) right;
         i = cr.compareTo(that.right);
         if (i == 0) {
