@@ -195,18 +195,19 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>java</goal>
                         </goals>
                         <phase>package</phase>
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- http://www.mojohaus.org/exec-maven-plugin/exec-mojo.html -->
-                    <executable>ziptool</executable>
+                    <!-- http://www.mojohaus.org/exec-maven-plugin/java-mojo.html -->
+                    <mainClass>dk.kb.maven.helpers.NormalizeJarFile</mainClass>
+                    <classpathScope>test</classpathScope>
                     <arguments>
                         <argument>${project.build.directory}/${project.build.finalName}.jar</argument>
-                        <argument>set_file_mtime_all</argument>
-                        <argument>0</argument>
+                        <argument>${project.build.directory}/${project.build.finalName}.jar.tmp</argument>
+                        <argument>${project.build.directory}/${project.build.finalName}.jar.old</argument>
                     </arguments>
                 </configuration>
             </plugin>

@@ -63,7 +63,7 @@ COMPILATION
 ---
 
 Required:
-* Java 8
+* Java 9 (for tests, library is compiled for Java 8+)
 * "ziptool" on the PATH
 
 Only the library itself is intended to go to Maven Central.
