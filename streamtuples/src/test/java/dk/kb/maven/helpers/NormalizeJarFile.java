@@ -11,6 +11,13 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
+ * NormalizeJarFile is a simples-posible jar normalizator which creates a new jar with all
+ * the entries in order on disk and their dates set to zero.  For now any error calls
+ * System.exit which shuts down the Maven JVM
+ * (which is a bug) but for now that is "good enough".  Three arguments for the current jar file
+ * name, temporary jar file name and backup file name.  It is in the test folder because we need
+ * it in the build class path (for now until it becomes a proper plugin) but it should not go in the final jar.
+ *
  * @noinspection PointlessBooleanExpression, WeakerAccess
  */
 public class NormalizeJarFile {
@@ -58,7 +65,7 @@ public class NormalizeJarFile {
                             entry.setTime(0);
                             tmp.putNextEntry(entry);
                             if (entry.isDirectory() == false) {
-                                // https://stackoverflow.com/q/43157/53897
+                                // https://stackoverflow.com/q/43157/53897, WHY isn't this in the standard runtime??
                                 InputStream in = source.getInputStream(entry);
                                 byte[] buffer = new byte[1024];
                                 int len = in.read(buffer);

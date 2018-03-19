@@ -59,13 +59,24 @@ StreamTuple also has a `filter()` method which helps the `Stream.filter()` metho
 and  `right()` plus `left()` which returns the two values stored in the stream tuple.
 
 
-COMPILATION
+COMPILATION & DEPLOYMENT
 ---
 
 Required:
 * Java 9 (for tests, library is compiled for Java 8+)
-* "ziptool" on the PATH
 
-Only the library itself is intended to go to Maven Central.
+Create new version:
+1. `mvn clean install`
+1. `mvn -f streamtuples release:prepare -DpushChanges=false`
+1. `git checkout streamtuples-X.X`
+1. `mvn -f streamtuples clean deploy`
+1. `git checkout master`
+1. `git push --tags && git push`
 
-/tra 2018-03-07
+If any fails, clean and start over.  ONLY push when everything is in perfect order!  Note this is different 
+from the typical way of doing this, because I want to have better control of the deploy process.  Maven is badly 
+overengineered there.
+
+Only the library itself is intended to go to Maven Central. 
+
+/tra 2018-03-19
