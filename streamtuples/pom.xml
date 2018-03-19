@@ -8,7 +8,7 @@
         <version>0.1</version>
     </parent>
     <artifactId>streamtuples</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.4</version>
 
     <dependencies>
         <dependency>
@@ -49,7 +49,7 @@
         <connection>scm:git:git://github.com/statsbiblioteket/streamtuples.git</connection>
         <developerConnection>scm:git:git@github.com/statsbiblioteket/streamtuples.git</developerConnection>
         <url>http://github.com/statsbiblioteket/streamtuples/tree/master</url>
-        <tag>HEAD</tag>
+        <tag>streamtuples-0.4</tag>
     </scm>
 
     <distributionManagement>
