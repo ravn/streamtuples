@@ -12,6 +12,43 @@
         <project.build.sourceEncoding>ASCII</project.build.sourceEncoding>
     </properties>
 
+    <url>https://github.com/statsbiblioteket/streamtuples</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Thorbjoern Ravn Andersen</name>
+            <email>tra@kb.dk</email>
+            <organization>Royal Danish Library</organization>
+            <organizationUrl>http://www.kb.dk/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/statsbiblioteket/streamtuples.git</connection>
+        <developerConnection>scm:git:git@github.com/statsbiblioteket/streamtuples.git</developerConnection>
+        <url>http://github.com/statsbiblioteket/streamtuples/tree/master</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+
     <modules>
         <module>streamtuples</module>
         <module>integration-test</module>
