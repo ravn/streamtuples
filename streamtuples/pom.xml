@@ -13,6 +13,10 @@
     <artifactId>streamtuples</artifactId>
     <version>0.5-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>ASCII</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
