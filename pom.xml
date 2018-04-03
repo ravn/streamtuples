@@ -52,5 +52,6 @@
     <modules>
         <module>streamtuples</module>
         <module>integration-test</module>
+        <module>streamtuples-unittests</module>
     </modules>
 </project>

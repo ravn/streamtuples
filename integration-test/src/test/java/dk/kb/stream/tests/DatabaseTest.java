@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @noinspection WeakerAccess
+ * @noinspection WeakerAccess, SqlNoDataSourceInspection
  */
 public class DatabaseTest {
 

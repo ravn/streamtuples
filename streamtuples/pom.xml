@@ -17,20 +17,6 @@
         <project.build.sourceEncoding>ASCII</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.0.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <name>StreamTuples</name>
     <description>Library for having tuples (multiple return values) in Java 8 streams</description>
@@ -207,7 +193,7 @@
                 </executions>
                 <configuration>
                     <!-- http://www.mojohaus.org/exec-maven-plugin/java-mojo.html -->
-                    <mainClass>dk.kb.maven.helpers.NormalizeJarFile</mainClass>
+                    <mainClass>dk.kb.maven.helpers.NormalizeJarFile_NotATest</mainClass>
                     <classpathScope>test</classpathScope>
                     <arguments>
                         <argument>${project.build.directory}/${project.build.finalName}.jar</argument>

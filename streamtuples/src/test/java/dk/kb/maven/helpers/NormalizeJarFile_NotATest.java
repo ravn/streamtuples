@@ -11,7 +11,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
- * NormalizeJarFile is a simples-posible jar normalizator which creates a new jar with all
+ * NormalizeJarFile_NotATest is a simples-posible jar normalizator which creates a new jar with all
  * the entries in order on disk and their dates set to zero.  For now any error calls
  * System.exit which shuts down the Maven JVM
  * (which is a bug) but for now that is "good enough".  Three arguments for the current jar file
@@ -20,7 +20,7 @@ import java.util.zip.ZipOutputStream;
  *
  * @noinspection PointlessBooleanExpression, WeakerAccess
  */
-public class NormalizeJarFile {
+public class NormalizeJarFile_NotATest {
     public static void main(String args[]) throws Exception {
         File workJarFile = new File(args[0]);
         File tmpJarFile = new File(args[1]);
