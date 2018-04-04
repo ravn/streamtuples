@@ -129,10 +129,11 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     /**
      * for <pre>.peek(st -> st.peek(r -> ....))</pre> for cases where it makes more sense than
      * just referring to st.left() and st.right() directly.
+     * @param f
      */
 
-    public <U> Consumer<U> peek(BiConsumer<L, U> f) {
-        return s -> f.accept(left, s);
+    public void peek(Consumer<R> f) {
+        f.accept(right);
     }
 
     /**
@@ -140,8 +141,8 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
      * just referring to st.left() and st.right() directly.
      */
 
-    public <U> U peek(BiFunction<L, R, U> f) {
-        return f.apply(left, right);
+    public void peek(BiConsumer<L, R> f) {
+        f.accept(left, right);
     }
 
     /**

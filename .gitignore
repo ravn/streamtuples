@@ -5,3 +5,4 @@
 /.idea/
 /integration-test/target/
 /streamtuples/target/
+/streamtuples-unittests/target/
