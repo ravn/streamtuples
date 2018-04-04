@@ -6,16 +6,16 @@
     <parent>
         <groupId>dk.kb.stream</groupId>
         <artifactId>streamtuples-parent</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <version>0.6-SNAPSHOT</version>
     </parent>
     <artifactId>streamtuples-integration-test</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.6-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>dk.kb.stream</groupId>
             <artifactId>streamtuples</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <version>0.6-SNAPSHOT</version>
         </dependency>
 
         <!-- http://www.baeldung.com/java-in-memory-databases -->

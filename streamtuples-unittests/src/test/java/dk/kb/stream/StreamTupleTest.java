@@ -31,7 +31,7 @@ public class StreamTupleTest {
 
     @Test
     public void isSimpleStreamCollectionWorking() {
-        Map<String, String> m = Stream.of("1", "2", "3")
+        var m = Stream.of("1", "2", "3")
                 .map(StreamTuple::create)
                 .collect(toMap(t -> t.left(), t -> t.right()));
 
@@ -144,7 +144,9 @@ public class StreamTupleTest {
         var m = Stream.of(1, 2, 3)
                 .map(StreamTuple::create)
                 .map(st -> st.map(r -> r * 2))
-                .peek(st -> st.peek(r -> list.add("-" + r)))
+                .peek(st -> st.peek(r -> {
+                    list.add("-" + r);
+                }))
                 .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
 
         assertThat(m, is(Map.of( //
