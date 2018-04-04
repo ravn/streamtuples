@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -17,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @noinspection WeakerAccess, Convert2MethodRef, ArraysAsListWithZeroOrOneArgument
+ * @noinspection WeakerAccess, Convert2MethodRef
  */
 public class StreamTupleTest {
     @Test
@@ -31,7 +33,7 @@ public class StreamTupleTest {
 
     @Test
     public void isSimpleStreamCollectionWorking() {
-        Map<String, String> m = Stream.of("1", "2", "3")
+        var m = Stream.of("1", "2", "3")
                 .map(StreamTuple::create)
                 .collect(toMap(t -> t.left(), t -> t.right()));
 
@@ -139,7 +141,33 @@ public class StreamTupleTest {
     }
 
     @Test
+    public void peek_oneArgTestExplicitConsumer() {
+
+        var list = new ArrayList<>();
+        var m = Stream.of(1, 2, 3)
+                .map(StreamTuple::create)
+                .map(st -> st.map(r -> r * 2))
+                .peek(st -> {
+                    // To ensure we have the proper signature.
+                    final Consumer<Integer> integerConsumer = r -> {
+                        list.add("-" + r);
+                    };
+                    st.peek(integerConsumer);
+                })
+                .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
+
+        assertThat(m, is(Map.of( //
+                1, List.of(2), //
+                2, List.of(4), //
+                3, List.of(6))));
+
+        assertThat(list, is(List.of("-2", "-4", "-6")));
+
+    }
+
+    @Test
     public void peek_oneArgTest() {
+
         var list = new ArrayList<>();
         var m = Stream.of(1, 2, 3)
                 .map(StreamTuple::create)
@@ -154,6 +182,29 @@ public class StreamTupleTest {
 
         assertThat(list, is(List.of("-2", "-4", "-6")));
 
+    }
+
+    @Test
+    public void peek_twoArgTestExplicitBiConsumer() {
+        var list = new ArrayList<>();
+        var m = Stream.of(1, 2, 3)
+                .map(StreamTuple::create)
+                .map(st -> st.map(r -> r * 2))
+                .peek(st -> {
+                    // To ensure we have the proper signature.
+                    final BiConsumer<Integer, Integer> integerIntegerBiConsumer = (l, r) -> {
+                        list.add(l + "-" + r);
+                    };
+                    st.peek(integerIntegerBiConsumer);
+                })
+                .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
+
+        assertThat(m, is(Map.of(
+                1, List.of(2),
+                2, List.of(4),
+                3, List.of(6))));
+
+        assertThat(list, is(List.of("1-2", "2-4", "3-6")));
     }
 
     @Test
