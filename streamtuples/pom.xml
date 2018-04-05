@@ -183,8 +183,8 @@
                             <Created-By>-</Created-By>
                             <Built-By>-</Built-By>
                             <Build-Jdk>-</Build-Jdk>
-                            <!-- set module name for Java 9+ -->
-                            <Automatic-Module-Name>${project.groupId}</Automatic-Module-Name>
+                            <!-- http://openjdk.java.net/jeps/238 -->
+                            <Multi-Release>true</Multi-Release>
                         </manifestEntries>
                     </archive>
                 </configuration>

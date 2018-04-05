@@ -59,7 +59,7 @@ COMPILATION & DEPLOYMENT
 ---
 
 Required:
-* Java 9 (for tests, library is compiled for Java 8+)
+* Java 10+ (for tests, library is compiled for Java 8+)
 
 Create new version:
 1. `mvn clean install`
@@ -76,6 +76,8 @@ order!  Note this is different from the typical way of doing this,
 because I want to have better control of the deploy process.  Maven is
 badly overengineered there.
 
-Only the library itself is intended to go to Maven Central. 
+Only the library itself is intended to go to Maven Central.  It 
+is a Multi Release Jar with a (for now) manually compiled module-info.class 
+file.
 
-/tra 2018-03-19
+/tra 2018-04-05
