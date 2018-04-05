@@ -19,7 +19,7 @@
 
 
     <name>StreamTuples</name>
-    <description>Library for having tuples (multiple return values) in Java 8 streams</description>
+    <description>Library for having tuples (multiple return values) in Java 8+ streams</description>
     <url>https://github.com/statsbiblioteket/streamtuples</url>
 
     <licenses>
@@ -178,11 +178,13 @@
                     <archive>
                         <!-- no pom files as they contain meta data -->
                         <addMavenDescriptor>false</addMavenDescriptor>
-                        <!-- blank out standard attributes -->
                         <manifestEntries>
+                            <!-- blank out standard attributes -->
                             <Created-By>-</Created-By>
                             <Built-By>-</Built-By>
                             <Build-Jdk>-</Build-Jdk>
+                            <!-- set module name for Java 9+ -->
+                            <Automatic-Module-Name>${project.groupId}</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>
