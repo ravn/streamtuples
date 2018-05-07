@@ -1,5 +1,6 @@
 package dk.kb.stream;
 
+import dk.kb.stream.javaslang.Eithers;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -237,4 +238,24 @@ public class StreamTupleTest {
 
         assertThat(l, is(List.of("a", "b", "z")));
     }
+
+    @Test
+    public void closeAfter_oneArgument() {
+        var result = Stream.of(new WasClosed())
+                .map(StreamTuple::create)
+                .map(st -> Eithers.tryCatch(st.closeAfter(r -> r)))
+                .map(st -> st.right().isClosed())
+                .collect(toList());
+        assertThat(result, is(List.of(Boolean.TRUE)));
+    }
+
+//    @Test
+//    public void closeAfter_twoArguments() {
+//        var result = Stream.of(new WasClosed())
+//                .map(StreamTuple::create)
+//                .map(st -> st.closeAfter((l, r) -> r))
+//                .map(st -> st.right().isClosed())
+//                .collect(toList());
+//        assertThat(result, is(List.of(Boolean.TRUE)));
+//    }
 }

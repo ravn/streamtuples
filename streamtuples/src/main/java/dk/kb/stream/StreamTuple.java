@@ -32,8 +32,8 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * Suitable for Stream::create.  Both left and right are set to the value passed in.  This is a good start if you have
-     * a stream of keys which you need later.
+     * Suitable for Stream::create.  Both left and right are set to the value passed in.  This is a good start if you
+     * have a stream of keys which you need later.
      *
      * @param item the item to be placed in both {@code left} and {@code right}
      * @return StreamTuple with item in both left and right.
@@ -62,9 +62,8 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * Return new TupleElement object with the given value (which may
-     * be a completely different type than the one hold by this
-     * object) and the same context.
+     * Return new TupleElement object with the given value (which may be a completely different type than the one hold
+     * by this object) and the same context.
      *
      * @param right value for new object.
      * @return IdValue with the same id and the new value.
@@ -74,8 +73,7 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * Apply a given function to the value and return a new IdValue
-     * object with the result (and same context).
+     * Apply a given function to the value and return a new IdValue object with the result (and same context).
      *
      * @param f function to apply to the current value to get the new value.
      * @return new SteamTuple with the same id and the result of applying f to current value.
@@ -85,13 +83,11 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * Apply a given two-argument function to the context <b>and</b>
-     * the current value, and return a new object with the result (and
-     * the same context).
+     * Apply a given two-argument function to the context <b>and</b> the current value, and return a new object with the
+     * result (and the same context).
      *
      * @param f function to apply to context and value to get new value.
-     * @return new IdValue with the same id and the result of applying
-     * f to current id and value.
+     * @return new IdValue with the same id and the result of applying f to current id and value.
      */
     public <U> StreamTuple<L, U> map(BiFunction<L, R, U> f) {
         return of(f.apply(left, right));
@@ -127,8 +123,9 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * for <pre>.peek(st -> st.peek(r -> ....))</pre> for cases where it makes more sense than
-     * just referring to st.left() and st.right() directly.
+     * for <pre>.peek(st -> st.peek(r -> ....))</pre> for cases where it makes more sense than just referring to
+     * st.left() and st.right() directly.
+     *
      * @param f
      */
 
@@ -137,8 +134,8 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * for <pre>.peek(st -> st.peek((l,r) -> ....))</pre> for cases where it makes more sense than
-     * just referring to st.left() and st.right() directly.
+     * for <pre>.peek(st -> st.peek((l,r) -> ....))</pre> for cases where it makes more sense than just referring to
+     * st.left() and st.right() directly.
      */
 
     public void peek(BiConsumer<L, R> f) {
@@ -157,8 +154,8 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * Make StreamTuples comparable.  The right value is considered first, and then the key.
-     * It is not required that they are comparable so this may fail with a ClassCastException.
+     * Make StreamTuples comparable.  The right value is considered first, and then the key. It is not required that
+     * they are comparable so this may fail with a ClassCastException.
      *
      * @noinspection unchecked
      */
@@ -187,4 +184,18 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     public int hashCode() {
         return Objects.hash(left, right);
     }
+
+    public StreamTuple<L, R> closeAfter(Function<R, R> f) throws Exception {
+        try (AutoCloseable rightValue = (AutoCloseable) right) {
+            return of(f.apply(right));
+        }
+    }
+
+//    public StreamTuple<L, R> closeAfter(BiFunction<L, R, R> f) {
+//        try (AutoCloseable rightValue = (AutoCloseable) right) {
+//            return of(f.apply(left, right));
+//        } catch (Exception e) {
+//            throw new RuntimeException("closeAfter(): " + e.getMessage(), e);
+//        }
+//    }
 }
