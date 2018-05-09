@@ -243,7 +243,8 @@ public class StreamTupleTest {
     public void closeAfter_oneArgument() {
         var result = Stream.of(new WasClosed())
                 .map(StreamTuple::create)
-                .map(st -> Eithers.tryCatch(st.closeAfter(r -> r)))
+                .map(st -> Eithers.tryCatch(() -> st.closeAfter(r -> r)).get())
+                .peek((StreamTuple<WasClosed, WasClosed> l) -> {})
                 .map(st -> st.right().isClosed())
                 .collect(toList());
         assertThat(result, is(List.of(Boolean.TRUE)));
