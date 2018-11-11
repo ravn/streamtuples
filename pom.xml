@@ -24,16 +24,16 @@
     <developers>
         <developer>
             <name>Thorbjoern Ravn Andersen</name>
-            <email>tra@kb.dk</email>
-            <organization>Royal Danish Library</organization>
-            <organizationUrl>http://www.kb.dk/</organizationUrl>
+            <email>thorbjoern@gmail.com</email>
+            <organization>Private</organization>
+            <organizationUrl>-</organizationUrl>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/statsbiblioteket/streamtuples.git</connection>
-        <developerConnection>scm:git:git@github.com/statsbiblioteket/streamtuples.git</developerConnection>
-        <url>http://github.com/statsbiblioteket/streamtuples/tree/master</url>
+        <connection>scm:git:git://github.com/ravn/streamtuples.git</connection>
+        <developerConnection>scm:git:git@github.com/ravn/streamtuples.git</developerConnection>
+        <url>http://github.com/ravn/streamtuples/tree/master</url>
         <tag>HEAD</tag>
     </scm>
 
