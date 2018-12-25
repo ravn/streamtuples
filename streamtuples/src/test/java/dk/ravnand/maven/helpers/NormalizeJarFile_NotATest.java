@@ -1,4 +1,4 @@
-package dk.kb.maven.helpers;
+package dk.ravnand.maven.helpers;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -11,17 +11,20 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
- * NormalizeJarFile_NotATest is a simples-posible jar normalizator which creates a new jar with all
+ * Initial take on normalizing a jar file. A proper Maven plugin should be made like
+ * the one in spring boot.
+ *
+ * NormalizeJarFile_NotATest is a simples-posible jar normalizer which creates a new jar with all
  * the entries in order on disk and their dates set to zero.  For now any error calls
  * System.exit which shuts down the Maven JVM
  * (which is a bug) but for now that is "good enough".  Three arguments for the current jar file
  * name, temporary jar file name and backup file name.  It is in the test folder because we need
  * it in the build class path (for now until it becomes a proper plugin) but it should not go in the final jar.
  *
- * @noinspection PointlessBooleanExpression, WeakerAccess
+ * @noinspection PointlessBooleanExpression
  */
 public class NormalizeJarFile_NotATest {
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         File workJarFile = new File(args[0]);
         File tmpJarFile = new File(args[1]);
         File backupJarFile = new File(args[2]);

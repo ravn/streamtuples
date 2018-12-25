@@ -1,4 +1,4 @@
-package dk.kb.stream.tests;
+package dk.ravnand.stream.tests;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>dk.kb.stream</groupId>
+        <groupId>dk.ravnand.stream</groupId>
         <artifactId>streamtuples-parent</artifactId>
         <version>0.7-SNAPSHOT</version>
     </parent>
@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>dk.kb.stream</groupId>
+            <groupId>dk.ravnand.stream</groupId>
             <artifactId>streamtuples</artifactId>
             <version>0.7-SNAPSHOT</version>
         </dependency>
@@ -45,7 +45,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>10</source>
                     <target>10</target>

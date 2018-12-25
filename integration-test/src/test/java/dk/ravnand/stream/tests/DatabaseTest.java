@@ -1,6 +1,6 @@
-package dk.kb.stream.tests;
+package dk.ravnand.stream.tests;
 
-import dk.kb.stream.StreamTuple;
+import dk.ravnand.stream.StreamTuple;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

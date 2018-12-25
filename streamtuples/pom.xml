@@ -9,7 +9,7 @@
         <version>0.5-SNAPSHOT</version>
     </parent>
     -->
-    <groupId>dk.kb.stream</groupId>
+    <groupId>dk.ravnand.stream</groupId>
     <artifactId>streamtuples</artifactId>
     <version>0.7-SNAPSHOT</version>
 
@@ -20,7 +20,7 @@
 
     <name>StreamTuples</name>
     <description>Library for having tuples (multiple return values) in Java 8+ streams</description>
-    <url>https://github.com/statsbiblioteket/streamtuples</url>
+    <url>https://github.com/ravn/streamtuples</url>
 
     <licenses>
         <license>
@@ -32,16 +32,16 @@
     <developers>
         <developer>
             <name>Thorbjoern Ravn Andersen</name>
-            <email>tra@kb.dk</email>
-            <organization>Royal Danish Library</organization>
-            <organizationUrl>http://www.kb.dk/</organizationUrl>
+            <email>thorbjoern@gmail.com</email>
+            <organization>-</organization>
+            <organizationUrl>-</organizationUrl>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/statsbiblioteket/streamtuples.git</connection>
-        <developerConnection>scm:git:git@github.com/statsbiblioteket/streamtuples.git</developerConnection>
-        <url>http://github.com/statsbiblioteket/streamtuples/tree/master</url>
+        <connection>scm:git:git://github.com/ravn/streamtuples.git</connection>
+        <developerConnection>scm:git:git@github.com/ravn/streamtuples.git</developerConnection>
+        <url>http://github.com/ravn/streamtuples/tree/master</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -59,9 +59,10 @@
     <build>
         <plugins>
             <plugin>
+                <!-- https://maven.apache.org/plugins/maven-compiler-plugin/usage.html -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -83,7 +84,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -110,6 +111,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -203,7 +205,7 @@
                 </executions>
                 <configuration>
                     <!-- http://www.mojohaus.org/exec-maven-plugin/java-mojo.html -->
-                    <mainClass>dk.kb.maven.helpers.NormalizeJarFile_NotATest</mainClass>
+                    <mainClass>dk.ravnand.maven.helpers.NormalizeJarFile_NotATest</mainClass>
                     <classpathScope>test</classpathScope>
                     <arguments>
                         <argument>${project.build.directory}/${project.build.finalName}.jar</argument>

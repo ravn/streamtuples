@@ -1,4 +1,4 @@
-package dk.kb.stream;
+package dk.ravnand.stream;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -147,13 +145,8 @@ public class StreamTupleTest {
         var m = Stream.of(1, 2, 3)
                 .map(StreamTuple::create)
                 .map(st -> st.map(r -> r * 2))
-                .peek(st -> {
-                    // To ensure we have the proper signature.
-                    final Consumer<Integer> integerConsumer = r -> {
-                        list.add("-" + r);
-                    };
-                    st.peek(integerConsumer);
-                })
+                // collect a derived value in separate list.
+                .peek(st -> st.peek(r -> list.add("-" + r)))
                 .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
 
         assertThat(m, is(Map.of( //
@@ -190,13 +183,8 @@ public class StreamTupleTest {
         var m = Stream.of(1, 2, 3)
                 .map(StreamTuple::create)
                 .map(st -> st.map(r -> r * 2))
-                .peek(st -> {
-                    // To ensure we have the proper signature.
-                    final BiConsumer<Integer, Integer> integerIntegerBiConsumer = (l, r) -> {
-                        list.add(l + "-" + r);
-                    };
-                    st.peek(integerIntegerBiConsumer);
-                })
+                // collect derived value in list
+                .peek(st -> st.peek((l, r) -> list.add(l + "-" + r)))
                 .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
 
         assertThat(m, is(Map.of(

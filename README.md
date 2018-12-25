@@ -1,4 +1,6 @@
-[![Javadocs](http://javadoc.io/badge/dk.kb.stream/streamtuples.svg)](http://javadoc.io/doc/dk.kb.stream/streamtuples)
+[![Javadocs](http://javadoc.io/badge/dk.ravnand.stream/streamtuples.svg)](http://javadoc.io/doc/dk.ravnand.stream/streamtuples)
+
+Note: Requires Java 10 to compile, Java 8 to use.
 
 
 _streamtuples_ is a solution to the "I need the value again I had
@@ -57,11 +59,13 @@ the two values stored in the stream tuple.
 
 COMPILATION & DEPLOYMENT
 ---
+Usage:
+* Java 8 or later.  Module is "dk.ravnand.stream".
 
-Required:
-* Java 10+ (for tests, library is compiled for Java 8+)
+Required for building:
+* Java 10+ 
 
-Create new version:
+Create new version for Maven Central:
 1. `mvn clean install`
 1. `git status` (must report "Your branch is up-to-date with origin/X")
 1. `mvn -f streamtuples release:prepare -DpushChanges=false -Dresume=false`
@@ -70,10 +74,12 @@ Create new version:
 1. `git checkout master`
 1. `git push --tags && git push`
 
-If any fails, clean and start over (possibly by discarding this clone
+*If anything fails, clean and start over* (possibly by discarding this clone
 and creating a new one).  ONLY push when everything is in perfect
-order!  Note this is different from the typical way of doing this,
-because I want to have better control of the deploy process.  Maven is
+order!  
+
+Note this is different from the typical way of doing this,
+because I want to have better control of the actual deploy process.  Maven is
 badly overengineered there.
 
 Only the library itself is intended to go to Maven Central.  It 
@@ -81,3 +87,8 @@ is a Multi Release Jar with a (for now) manually compiled module-info.class
 file.
 
 /tra 2018-04-05
+
+Moved from previous employer domain "dk.kb.\*" to new personal domain "dk.ravnand.\*".
+
+/ravn 2018-04-25
+  

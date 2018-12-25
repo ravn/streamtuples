@@ -1,4 +1,4 @@
-package dk.kb.stream;
+package dk.ravnand.stream;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -129,7 +129,8 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     /**
      * for <pre>.peek(st -> st.peek(r -> ....))</pre> for cases where it makes more sense than
      * just referring to st.left() and st.right() directly.
-     * @param f
+     *
+     * @param f consumer function to apply to the right value.
      */
 
     public void peek(Consumer<R> f) {
