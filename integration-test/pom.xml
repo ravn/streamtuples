@@ -19,25 +19,42 @@
         </dependency>
 
         <!-- http://www.baeldung.com/java-in-memory-databases -->
+        <!-- http://www.h2database.com/html/cheatSheet.html -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.196</version>
+            <version>1.4.197</version>
         </dependency>
 
 
+        <!-- https://junit.org/junit5/docs/current/user-guide/#dependency-metadata-junit-jupiter -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.1.0</version>
+            <version>5.3.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- http://hamcrest.org/JavaHamcrest/distributables#using-hamcrest-in-a-maven-project -->
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
+            <artifactId>hamcrest</artifactId>
+            <version>2.1</version>
             <scope>test</scope>
         </dependency>
+        <!-- to get Either and Try(...).toEither() -->
+        <dependency>
+            <!-- http://www.vavr.io/vavr-docs/#_maven -->
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>0.9.2</version>
+        </dependency>
+        <!-- https://commons.apache.org/proper/commons-dbutils/apidocs/org/apache/commons/dbutils/ResultSetIterator.html -->
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>1.7</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -51,32 +68,21 @@
                     <target>10</target>
                 </configuration>
             </plugin>
-            <!-- http://maven.apache.org/plugins/maven-deploy-plugin/faq.html#skip -->
             <plugin>
+                <!-- http://maven.apache.org/plugins/maven-deploy-plugin/faq.html#skip -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
+                <version>3.0.0-M1</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
             </plugin>
 
-            <!-- https://junit.org/junit5/docs/current/user-guide/#running-tests-build-maven -->
+            <!-- jUnit 5 requires 2.22.1 or newer -->
             <plugin>
+                <!-- https://maven.apache.org/surefire/maven-surefire-plugin/usage.html -->
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>1.1.0</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.1.0</version>
-                    </dependency>
-                </dependencies>
+                <version>3.0.0-M3</version>
             </plugin>
         </plugins>
     </build>

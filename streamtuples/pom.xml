@@ -98,7 +98,7 @@
                         </configuration>
                     </execution>
                 </executions>
-                <!-- needed for Java 10 -->
+                <!-- needed for Java 10+ -->
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.commons</groupId>
