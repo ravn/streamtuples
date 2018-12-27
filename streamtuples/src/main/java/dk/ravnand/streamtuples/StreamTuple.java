@@ -1,4 +1,4 @@
-package dk.ravnand.stream;
+package dk.ravnand.streamtuples;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
- * <p>Helper class for having multiple values in a stream. </p>
+ * <p>Helper class for having multiple values in a streamtuples. </p>
  *
  * @noinspection WeakerAccess
  */
@@ -33,7 +33,7 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
 
     /**
      * Suitable for Stream::create.  Both left and right are set to the value passed in.  This is a good start if you have
-     * a stream of keys which you need later.
+     * a streamtuples of keys which you need later.
      *
      * @param item the item to be placed in both {@code left} and {@code right}
      * @return StreamTuple with item in both left and right.

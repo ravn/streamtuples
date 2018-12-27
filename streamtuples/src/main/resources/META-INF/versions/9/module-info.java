@@ -1,5 +1,5 @@
 /**
- * This module-info.java file must be compiled by hand (and is included as a resource)
+ * This module-info.java file must currently be compiled by hand (and is included as a resource)
  * as there is no good support for Multi release jar files
  * in Maven yet.
  * <p>
@@ -10,5 +10,5 @@
  * to update the class file after changes.
  */
 
-module dk.ravnand.stream {
+module dk.ravnand.streamtuples {
 }

@@ -16,4 +16,4 @@
  * method here which returns what the outer method needs to do its
  * job. </p>
  */
-package dk.ravnand.stream;
+package dk.ravnand.streamtuples;

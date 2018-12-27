@@ -15,5 +15,5 @@ Must have
   
 in ~/.m2/settings.xml
 
-Artifacts at https://oss.sonatype.org/content/repositories/snapshots/dk/kb/stream/streamtuples/ 
+Artifacts at https://oss.sonatype.org/content/repositories/snapshots/dk/ravnand/stream/streamtuples/ 
 

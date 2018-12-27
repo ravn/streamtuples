@@ -5,7 +5,7 @@
 
     <parent>
         <artifactId>streamtuples-parent</artifactId>
-        <groupId>dk.ravnand.stream</groupId>
+        <groupId>dk.ravnand.streamtuples</groupId>
         <version>0.7-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -15,7 +15,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>dk.ravnand.stream</groupId>
+            <groupId>dk.ravnand.streamtuples</groupId>
             <artifactId>streamtuples</artifactId>
             <version>0.7-SNAPSHOT</version>
         </dependency>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.1.0</version>
+            <version>5.3.2</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -43,22 +43,21 @@
                     <target>10</target>
                 </configuration>
             </plugin>
-            <!-- https://junit.org/junit5/docs/current/user-guide/#running-tests-build-maven -->
             <plugin>
+                <!-- http://maven.apache.org/plugins/maven-deploy-plugin/faq.html#skip -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- jUnit 5 requires 2.22.1 or newer -->
+            <plugin>
+                <!-- https://maven.apache.org/surefire/maven-surefire-plugin/usage.html -->
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-api</artifactId>
-                        <version>5.3.2</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.3.2</version>
-                    </dependency>
-                </dependencies>
+                <version>3.0.0-M3</version>
             </plugin>
         </plugins>
     </build>

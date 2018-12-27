@@ -1,12 +1,11 @@
-package dk.ravnand.stream.tests;
+package dk.ravnand.streamtuples.tests;
 
-import dk.ravnand.stream.StreamTuple;
+import dk.ravnand.streamtuples.StreamTuple;
 import io.vavr.control.Try;
 import org.apache.commons.dbutils.ResultSetIterator;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;

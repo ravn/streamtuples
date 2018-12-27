@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>dk.ravnand.stream</groupId>
+        <groupId>dk.ravnand.streamtuples</groupId>
         <artifactId>streamtuples-parent</artifactId>
         <version>0.7-SNAPSHOT</version>
     </parent>
@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>dk.ravnand.stream</groupId>
+            <groupId>dk.ravnand.streamtuples</groupId>
             <artifactId>streamtuples</artifactId>
             <version>0.7-SNAPSHOT</version>
         </dependency>

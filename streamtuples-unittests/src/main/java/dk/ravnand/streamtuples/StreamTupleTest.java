@@ -1,4 +1,4 @@
-package dk.ravnand.stream;
+package dk.ravnand.streamtuples;
 
 import org.junit.jupiter.api.Test;
 

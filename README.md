@@ -1,6 +1,6 @@
 [![Javadocs](http://javadoc.io/badge/dk.ravnand.stream/streamtuples.svg)](http://javadoc.io/doc/dk.ravnand.stream/streamtuples)
 
-Note: Requires Java 10 to compile, Java 8 to use.
+Note: Requires Java 10+ to compile, Java 8+ to use.
 
 
 _streamtuples_ is a solution to the "I need the value again I had
@@ -60,7 +60,7 @@ the two values stored in the stream tuple.
 COMPILATION & DEPLOYMENT
 ---
 Usage:
-* Java 8 or later.  Module is "dk.ravnand.stream".
+* Java 8 or later.  Module is "dk.ravnand.streamtuples".
 
 Required for building:
 * Java 10+ 
