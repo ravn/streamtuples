@@ -2,7 +2,6 @@
 
 Note: Requires Java 10+ to compile, Java 8+ to use.
 
-
 _streamtuples_ is a solution to the "I need the value again I had
 earlier in the stream".  This is typically when you have an id, use it
 to look something up (replacing the id with the value found) and then

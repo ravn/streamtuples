@@ -5,7 +5,7 @@
  * find that you need to pass both the original value and the
  * current result to the next step instead of just the current result.
  * The current Word Of God is that you
- * create a custom class for each intermediate step, which is rather
+ * of a custom class for each intermediate step, which is rather
  * cumbersome.  This is an experiment to see if a helper class that
  * knows the original value plus some suitable helper methods can
  * replace these custom classes.  As the JRE does only have two-argument

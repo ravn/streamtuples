@@ -30,7 +30,7 @@
         <!-- https://junit.org/junit5/docs/current/user-guide/#dependency-metadata-junit-jupiter -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <version>5.3.2</version>
             <scope>test</scope>
         </dependency>
@@ -82,8 +82,8 @@
             <plugin>
                 <!-- https://maven.apache.org/surefire/maven-surefire-plugin/usage.html -->
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
-            </plugin>
+                <version>2.22.1</version>
+             </plugin>
         </plugins>
     </build>
 </project>

@@ -32,18 +32,6 @@ public class StreamTuple<L, R> implements Comparable<StreamTuple<L, R>> {
     }
 
     /**
-     * Suitable for Stream::create.  Both left and right are set to the value passed in.  This is a good start if you have
-     * a streamtuples of keys which you need later.
-     *
-     * @param item the item to be placed in both {@code left} and {@code right}
-     * @return StreamTuple with item in both left and right.
-     */
-
-    public static <I> StreamTuple<I, I> create(I item) {
-        return new StreamTuple<>(item, item);
-    }
-
-    /**
      * Gets the left value.
      *
      * @return L left

@@ -1,6 +1,6 @@
 package dk.ravnand.streamtuples.tests;
 
-import dk.ravnand.streamtuples.StreamTuple;
+import dk.ravnand.streamtuples.StreamTuples;
 import io.vavr.control.Try;
 import org.apache.commons.dbutils.ResultSetIterator;
 import org.h2.jdbcx.JdbcDataSource;
@@ -48,7 +48,7 @@ public class DatabaseTest {
     public void isDatabaseWellBehaved() throws SQLException {
         try (var conn = Objects.requireNonNull(datasource, "datasource").getConnection();
              var statement = conn.prepareStatement("SELECT 1 AS ROW1");
-             var resultSet = statement.executeQuery();
+             var resultSet = statement.executeQuery()
         ) {
             // Meta data
             assertEquals(1, resultSet.getMetaData().getColumnCount());
@@ -92,9 +92,8 @@ public class DatabaseTest {
             // ---
             // Ask database for each id.  We use Try.of to tame some of the SQLExceptions.  This is work in progress.
 
-            var updateResult = Stream.of(2, 3)
-                    .map(StreamTuple::create)
-                    .map(st -> st.map(id -> { // ResultSets do not work well in streams. Better solution pending.
+            var updateResult = StreamTuples.streamOf(2, 3)
+                    .map(t -> t.map(id -> { // ResultSets do not work well in streams. Better solution pending.
                         try (var resultSet = statement.executeQuery("SELECT * FROM t WHERE id=" + id)) {
                             // https://stackoverflow.com/a/24511534/53897
                             Object[] row = StreamSupport.stream(ResultSetIterator.iterable(resultSet).spliterator(), false)
@@ -105,9 +104,9 @@ public class DatabaseTest {
                             throw new RuntimeException(e);
                         }
                     }))
-                    .map(st -> st.map(v -> ">" + v + "<"))
-                    .map(st -> st.map((id, v) -> Try.of(() -> statement.execute("UPDATE t SET s='" + v + "' WHERE id=" + id)).get()))
-                    .collect(toMap(st -> st.left(), st -> st.right()));
+                    .map(t -> t.map(v -> ">" + v + "<"))
+                    .map(t -> t.map((id, v) -> Try.of(() -> statement.execute("UPDATE t SET s='" + v + "' WHERE id=" + id)).get()))
+                    .collect(toMap(t -> t.left(), t -> t.right()));
 
             var expectedUpdateResult = Map.of(2, false, 3, false);
             assertThat(updateResult, is(expectedUpdateResult));

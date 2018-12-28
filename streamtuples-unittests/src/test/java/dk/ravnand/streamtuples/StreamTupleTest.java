@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.mapping;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,8 +28,7 @@ public class StreamTupleTest {
 
     @Test
     public void isSimpleStreamCollectionWorking() {
-        var m = Stream.of("1", "2", "3")
-                .map(StreamTuple::create)
+        var m = StreamTuples.streamOf("1", "2", "3")
                 .collect(toMap(t -> t.left(), t -> t.right()));
 
         assertThat(m, is(Map.of("1", "1",
@@ -42,33 +38,29 @@ public class StreamTupleTest {
 
     @Test  // junit 5
     public void simpleMapUpdateOperationUsingStreamTupleForEach() {
-        var map = new HashMap<>(Map.of(
-                1, "1.",
-                2, "2."));
-
+        var map = new HashMap<>(Map.of(1, "1.", 2, "2."));
         var result = map.keySet().stream()
-                .map(StreamTuple::create) // (1, 1), (2, 2)
-                // lookup value for key
-                .map(st -> st.map(key -> map.get(key))) // (1, "1."), (2, "2.")
-                // only process those who are interesting
-                .filter(st -> st.filter(s -> s.startsWith("1"))) // (1, "1.")
-                // manipulate value, no notion of key
-                .map(st -> st.map(s -> s + " OK"))  // (1, "1. OK")
-                // store value back for key
-                .map(st -> st.map((key, s) -> map.put(key, s))) // (1, "1.") (put returns old value)
-                .collect(toMap(st -> st.left(), st -> st.right()));
+                // 1, 2
+                .map(StreamTuples::of)
+                // (1, 1), (2, 2)
+                .map(t -> t.map(key -> map.get(key)))
+                // (1, "1."), (2, "2.")
+                .filter(t -> t.filter(s -> s.startsWith("1")))
+                // (1, "1.")
+                .map(t -> t.map(s -> s + " OK"))
+                // (1, "1. OK")
+                .map(t -> t.map((key, s) -> map.put(key, s)))
+                // (1, "1.") (put returns old value)
+                .collect(toMap(t -> t.left(), t -> t.right()));
 
         assertThat(result, is(Map.of(1, "1.")));
 
-        assertThat(map, is(Map.of(
-                1, "1. OK",
-                2, "2.")));
+        assertThat(map, is(Map.of(1, "1. OK", 2, "2.")));
     }
 
     @Test
     public void canWeMapBetweenTypes() {
-        var m = Stream.of("1", "2", "3")
-                .map(StreamTuple::create)
+        var m = StreamTuples.streamOf("1", "2", "3")
                 .map(t -> t.map(v -> Integer.valueOf(v) * 2))
                 .map(t -> t.map(v -> "doubled is " + v))
                 .collect(toMap(t -> t.left(), t -> t.right()));
@@ -80,8 +72,7 @@ public class StreamTupleTest {
 
     @Test
     public void canWeMapBetweenTypesUsingBothLeftAndRight() {
-        var m = Stream.of("1", "2", "3")
-                .map(StreamTuple::create)
+        var m = StreamTuples.streamOf("1", "2", "3")
                 .map(t -> t.map(v -> Integer.valueOf(v) * 2))
                 .map(t -> t.map((id, v) -> id + "*2=" + v))
                 .collect(toMap(t -> t.left(), t -> t.right()));
@@ -105,8 +96,7 @@ public class StreamTupleTest {
 
     @Test
     public void filterOutRightsLargerThanTwo() {
-        var m = Stream.of(1, 2, 3)
-                .map(StreamTuple::create)
+        var m = StreamTuples.streamOf(1, 2, 3)
                 .filter(t -> t.filter(r -> r < 2))
                 .collect(toMap(t -> t.left(), t -> t.right()));
 
@@ -115,8 +105,7 @@ public class StreamTupleTest {
 
     @Test
     public void flatMap_doubleOddRights() {
-        var m = Stream.of(1, 2, 3)
-                .map(StreamTuple::create)
+        var m = StreamTuples.streamOf(1, 2, 3)
                 // get odd ones and multiply them by two
                 .flatMap(t -> t.flatMap(r -> r % 2 == 1 ? Stream.of(r * 2) : Stream.of()))
                 .collect(toMap(t -> t.left(), t -> t.right()));
@@ -127,8 +116,7 @@ public class StreamTupleTest {
 
     @Test
     public void flatMap_doubleOddRightsTripleEvenRights() {
-        var m = Stream.of(1, 2, 3)
-                .map(StreamTuple::create)
+        var m = StreamTuples.streamOf(1, 2, 3)
                 .flatMap(t -> t.flatMap((l, r) -> l % 2 == 1 ? Stream.of(r * 2) : Stream.of(r, r * 2, r * 3)))
                 .collect(groupingBy(t -> t.left(), mapping(t -> t.right(), toList()))); // multi-valued map
 
@@ -142,8 +130,7 @@ public class StreamTupleTest {
     public void peek_oneArgTestExplicitConsumer() {
 
         var list = new ArrayList<>();
-        var m = Stream.of(1, 2, 3)
-                .map(StreamTuple::create)
+        var m = StreamTuples.streamOf(1, 2, 3)
                 .map(st -> st.map(r -> r * 2))
                 // collect a derived value in separate list.
                 .peek(st -> st.peek(r -> list.add("-" + r)))
@@ -155,18 +142,16 @@ public class StreamTupleTest {
                 3, List.of(6))));
 
         assertThat(list, is(List.of("-2", "-4", "-6")));
-
     }
 
     @Test
     public void peek_oneArgTest() {
 
         var list = new ArrayList<>();
-        var m = Stream.of(1, 2, 3)
-                .map(StreamTuple::create)
-                .map(st -> st.map(r -> r * 2))
-                .peek(st -> st.peek(r -> list.add("-" + r)))
-                .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
+        var m = StreamTuples.streamOf(1, 2, 3)
+                .map(t -> t.map(r -> r * 2))
+                .peek(t -> t.peek(r -> list.add("-" + r)))
+                .collect(groupingBy(t -> t.left(), mapping(t -> t.right(), toList())));
 
         assertThat(m, is(Map.of( //
                 1, List.of(2), //
@@ -180,12 +165,11 @@ public class StreamTupleTest {
     @Test
     public void peek_twoArgTestExplicitBiConsumer() {
         var list = new ArrayList<>();
-        var m = Stream.of(1, 2, 3)
-                .map(StreamTuple::create)
-                .map(st -> st.map(r -> r * 2))
+        var m = StreamTuples.streamOf(1, 2, 3)
+                .map(t -> t.map(r -> r * 2))
                 // collect derived value in list
-                .peek(st -> st.peek((l, r) -> list.add(l + "-" + r)))
-                .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
+                .peek(t -> t.peek((l, r) -> list.add(l + "-" + r)))
+                .collect(groupingBy(t -> t.left(), mapping(t -> t.right(), toList())));
 
         assertThat(m, is(Map.of(
                 1, List.of(2),
@@ -198,11 +182,10 @@ public class StreamTupleTest {
     @Test
     public void peek_twoArgTest() {
         var list = new ArrayList<>();
-        var m = Stream.of(1, 2, 3)
-                .map(StreamTuple::create)
-                .map(st -> st.map(r -> r * 2))
-                .peek(st -> st.peek((l, r) -> list.add(l + "-" + r)))
-                .collect(groupingBy(st -> st.left(), mapping(st -> st.right(), toList())));
+        var m = StreamTuples.streamOf(1, 2, 3)
+                .map(t -> t.map(r -> r * 2))
+                .peek(t -> t.peek((l, r) -> list.add(l + "-" + r)))
+                .collect(groupingBy(t -> t.left(), mapping(t -> t.right(), toList())));
 
         assertThat(m, is(Map.of(
                 1, List.of(2),
@@ -220,9 +203,38 @@ public class StreamTupleTest {
                 new StreamTuple<>(3, "a")
         )
                 .sorted()
-                .map(st -> st.right())
+                .map(t -> t.right())
                 .collect(toList());
 
         assertThat(l, is(List.of("a", "b", "z")));
+    }
+
+    @Test
+    public void sorted_duplicateLeftValues() {
+        var l = Stream.of(
+                new StreamTuple<>(2, "z"),
+                new StreamTuple<>(2, "b"),
+                new StreamTuple<>(3, "a"),
+                new StreamTuple<>(3, "q")
+        )
+                .sorted()
+                .flatMap(t-> Stream.of(t.right(), t.left()))
+                .collect(toList());
+
+        assertThat(l, is(List.of("a", 3, "b", 2, "q", 3, "z", 2)));
+    }
+    @Test
+    public void sorted_duplicateRightValues() {
+        var l = Stream.of(
+                new StreamTuple<>(2, "a"),
+                new StreamTuple<>(2, "q"),
+                new StreamTuple<>(3, "a"),
+                new StreamTuple<>(3, "b")
+        )
+                .sorted()
+                .flatMap(t-> Stream.of(t.right(), t.left()))
+                .collect(toList());
+
+        assertThat(l, is(List.of("a", 2, "a", 3, "b", 3, "q", 2)));
     }
 }
