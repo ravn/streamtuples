@@ -11,7 +11,7 @@
     -->
     <groupId>dk.ravnand.streamtuples</groupId>
     <artifactId>streamtuples</artifactId>
-    <version>0.7</version>
+    <version>0.8-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>ASCII</project.build.sourceEncoding>
@@ -42,7 +42,7 @@
         <connection>scm:git:git://github.com/ravn/streamtuples.git</connection>
         <developerConnection>scm:git:git@github.com/ravn/streamtuples.git</developerConnection>
         <url>http://github.com/ravn/streamtuples/tree/master</url>
-        <tag>streamtuples-0.7</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
