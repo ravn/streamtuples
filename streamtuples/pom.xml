@@ -46,13 +46,10 @@
     </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/tandeday/streamtuples</url>
         </repository>
     </distributionManagement>
 
@@ -116,7 +113,7 @@
                     <execution>
                         <id>sign-artifacts</id>
                         <!-- moved from verify to deploy to only do gpg when really needed -->
-                        <phase>deploy</phase>
+                        <phase>disabled-deploy</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
@@ -156,7 +153,7 @@
                             <goal>check</goal>
                         </goals>
                         <!-- kør dependency-check-maven ved mvn package -->
-                        <phase>deploy</phase>
+                        <phase>disabled-deploy</phase>
                     </execution>
                 </executions>
             </plugin>
