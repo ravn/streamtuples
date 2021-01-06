@@ -3,6 +3,6 @@
 /streamtuples/release.properties
 /streamtuples/pom.xml.releaseBackup
 /.idea/
-/integration-test/target/
 /streamtuples/target/
 /streamtuples-unittests/target/
+/streamtuples-integration-test/target/
